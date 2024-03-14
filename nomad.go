@@ -121,20 +121,34 @@ func addServiceResponses(m *dns.Msg, svcRegistrations []*api.ServiceRegistration
 			return fmt.Errorf("error parsing IP address")
 		}
 
-		switch qtype {
-		case dns.TypeA:
-			addARecord(m, header, addr)
-		case dns.TypeAAAA:
-			addAAAARecord(m, header, addr)
-		case dns.TypeSRV:
+		if qtype == dns.TypeA {
+			if addr.To4() != nil { // addr is IPv4 Address
+				addARecord(m, header, addr)
+				continue
+			} else {
+				// noop
+				continue
+			}
+		}
+		if qtype == dns.TypeAAAA {
+			if addr.To4() == nil { // addr is IPv6 Address
+				addAAAARecord(m, header, addr)
+				continue
+			} else {
+				// noop
+				continue
+			}
+		}
+		if qtype == dns.TypeSRV {
 			err := addSRVRecord(m, s, header, originalQName, addr, ttl)
 			if err != nil {
 				return err
 			}
-		default:
-			m.Rcode = dns.RcodeNotImplemented
-			return fmt.Errorf("query type not implemented")
+			continue
 		}
+
+		m.Rcode = dns.RcodeNotImplemented
+		return fmt.Errorf("query type not implemented")
 	}
 	return nil
 }

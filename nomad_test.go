@@ -29,6 +29,22 @@ func TestNomad(t *testing.T) {
 			},
 		},
 		{
+			Qname:  "example.default.service.nomad.",
+			Qtype:  dns.TypeAAAA,
+			Rcode:  dns.RcodeSuccess,
+			Answer: []dns.RR{
+				// empty
+			},
+		},
+		{
+			Qname:  "fakeipv6.default.service.nomad.",
+			Qtype:  dns.TypeA,
+			Rcode:  dns.RcodeSuccess,
+			Answer: []dns.RR{
+				// empty
+			},
+		},
+		{
 			Qname: "fakeipv6.default.service.nomad.",
 			Qtype: dns.TypeAAAA,
 			Rcode: dns.RcodeSuccess,
