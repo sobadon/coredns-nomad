@@ -6,6 +6,15 @@
   - https://github.com/coredns/coredns/pull/5833
 - https://github.com/ituoga/coredns-nomad
 
+## executable binary
+
+```
+https://object-storage1.chasoba.net/public-artifact-generic-chasoba-net/github.com/sobadon/coredns-nomad/${{ github.sha }}/coredns
+https://object-storage1.chasoba.net/public-artifact-generic-chasoba-net/github.com/sobadon/coredns-nomad/d99f827485dc1066d29de89f8a86c0a4c8db2099/coredns
+```
+
+- ref: https://github.com/sobadon/coredns-nomad/actions/workflows/build_binary.yaml
+
 ## Name
 
 *nomad* - DNS interface to Nomad native service discovery.
