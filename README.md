@@ -1,5 +1,11 @@
 # CoreDNS Nomad plugin
 
+## original
+
+- https://github.com/mr-karan/coredns-nomad
+  - https://github.com/coredns/coredns/pull/5833
+- https://github.com/ituoga/coredns-nomad
+
 ## Name
 
 *nomad* - DNS interface to Nomad native service discovery.
@@ -10,7 +16,7 @@ The nomad plugin serves DNS records for services registered with Nomad. Nomad 1.
 
 The query can be looked up with the format `service.namespace.nomad`. The plugin currently handles A, AAAA and SRV records. Refer to [#Usage Example](#usage-example) for more details.
 
-## Example job templte 
+## Example job templte
 
 ```
 job "dns" {
@@ -146,7 +152,7 @@ You can read about them in detail [here](https://www.nomadproject.io/docs/runtim
 ### A record
 
 ```
-dig redis.default.service.nomad @127.0.0.1 -p 1053    
+dig redis.default.service.nomad @127.0.0.1 -p 1053
 
 ; <<>> DiG 9.18.1-1ubuntu1.2-Ubuntu <<>> redis.default.service.nomad @127.0.0.1 -p 1053
 ;; global options: +cmd
@@ -244,7 +250,3 @@ This plugin is intended to appear twoard the end of the plugin list, usually nea
 ```
 nomad:github.com/ituoga/coredns-nomad
 ```
-
-### Author
-
-https://github.com/mr-karan
