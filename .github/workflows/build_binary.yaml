@@ -1,0 +1,25 @@
+name: Build Binary
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - id: build_coredns
+        run: |
+          ./scripts/build-coredns.sh v1.11.1
+      - run: |
+          aws s3 cp ${{ steps.build_coredns.outputs.COREDNS_BINARY_PATH }} s3://public-artifact-generic-chasoba-net/github.com/sobadon/coredns-nomad/${{ github.sha }}/coredns
+        env:
+          AWS_DEFAULT_REGION: fake
+          AWS_EC2_METADATA_DISABLED: true
+          AWS_ENDPOINT_URL: https://object-storage1.chasoba.net
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
